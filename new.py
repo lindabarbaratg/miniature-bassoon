@@ -69,102 +69,20 @@ def run_bot(data_account, recover=1):
         driver.get(kw)
         time.sleep(3)
         
-        selector1 = 'body > div > div.gallery-grid > div:nth-child(1) > div.tg-channel-link > a > img'
-        element1 = driver.find_element(By.CSS_SELECTOR, selector1)
-        judul1 = element1.text
-
-        selector2 = 'body > div > div.gallery-grid > div:nth-child(2) > div.tg-channel-link > a > img'
-        element2 = driver.find_element(By.CSS_SELECTOR, selector2)
-        judul2 = element2.text
-
-        selector3 = 'body > div > div.gallery-grid > div:nth-child(3) > div.tg-channel-link > a > img'
-        element3 = driver.find_element(By.CSS_SELECTOR, selector3)
-        judul3 = element3.text
-
-        selector4 = 'body > div > div.gallery-grid > div:nth-child(4) > div.tg-channel-link > a > img'
-        element4 = driver.find_element(By.CSS_SELECTOR, selector4)
-        judul4 = element4.text
-
-        selector5 = 'body > div > div.gallery-grid > div:nth-child(5) > div.tg-channel-link > a > img'
-        element5 = driver.find_element(By.CSS_SELECTOR, selector5)
-        judul5 = element5.text
-
-        selector6 = 'body > div > div.gallery-grid > div:nth-child(6) > div.tg-channel-link > a > img'
-        element6 = driver.find_element(By.CSS_SELECTOR, selector6)
-        judul6 = element6.text
-
-        selector7 = 'body > div > div.gallery-grid > div:nth-child(7) > div.tg-channel-link > a > img'
-        element7 = driver.find_element(By.CSS_SELECTOR, selector7)
-        judul7 = element7.text
-
-        selector8 = 'body > div > div.gallery-grid > div:nth-child(8) > div.tg-channel-link > a > img'
-        element8 = driver.find_element(By.CSS_SELECTOR, selector8)
-        judul8 = element8.text
-
-        selector9 = 'body > div > div.gallery-grid > div:nth-child(9) > div.tg-channel-link > a > img'
-        element9 = driver.find_element(By.CSS_SELECTOR, selector9)
-        judul9 = element9.text
-
-        selector10 = 'body > div > div.gallery-grid > div:nth-child(10) > div.tg-channel-link > a > img'
-        element10 = driver.find_element(By.CSS_SELECTOR, selector10)
-        judul10 = element10.text
-
-
-        selector11 = 'body > div > div.gallery-grid > div:nth-child(11) > div.tg-channel-link > a > img'
-        element11 = driver.find_element(By.CSS_SELECTOR, selector11)
-        judul11 = element11.text
-
-        selector12 = 'body > div > div.gallery-grid > div:nth-child(12) > div.tg-channel-link > a > img'
-        element12 = driver.find_element(By.CSS_SELECTOR, selector12)
-        judul12 = element12.text
-
-        selector13 = 'body > div > div.gallery-grid > div:nth-child(13) > div.tg-channel-link > a > img'
-        element13 = driver.find_element(By.CSS_SELECTOR, selector13)
-        judul13 = element13.text
-
-        selector14 = 'body > div > div.gallery-grid > div:nth-child(14) > div.tg-channel-link > a > img'
-        element14 = driver.find_element(By.CSS_SELECTOR, selector14)
-        judul14 = element14.text
-
-        selector15 = 'body > div > div.gallery-grid > div:nth-child(15) > div.tg-channel-link > a > img'
-        element15 = driver.find_element(By.CSS_SELECTOR, selector15)
-        judul15 = element15.text
-
-        selector16 = 'body > div > div.gallery-grid > div:nth-child(16) > div.tg-channel-link > a > img'
-        element16 = driver.find_element(By.CSS_SELECTOR, selector16)
-        judul16 = element16.text
-
-        selector17 = 'body > div > div.gallery-grid > div:nth-child(17) > div.tg-channel-link > a > img'
-        element17 = driver.find_element(By.CSS_SELECTOR, selector17)
-        judul17 = element17.text
-
-        selector18 = 'body > div > div.gallery-grid > div:nth-child(18) > div.tg-channel-link > a > img'
-        element18 = driver.find_element(By.CSS_SELECTOR, selector18)
-        judul18 = element18.text
-
-        selector19 = 'body > div > div.gallery-grid > div:nth-child(19) > div.tg-channel-link > a > img'
-        element19 = driver.find_element(By.CSS_SELECTOR, selector19)
-        judul19 = element19.text
-
-        selector20 = 'body > div > div.gallery-grid > div:nth-child(20) > div.tg-channel-link > a > img'
-        element20 = driver.find_element(By.CSS_SELECTOR, selector20)
-        judul20 = element20.text
-
-
-
-
-
-
-        data_text = f"{judul1}\n{judul2}\n{judul3}\n{judul4}\n{judul5}\n{judul6}\n{judul7}\n{judul8}\n{judul9}\n{judul10}\n{judul11}\n{judul12}\n{judul13}\n{judul14}\n{judul15}\n{judul16}\n{judul17}\n{judul18}\n{judul19}\n{judul20}"
-
-
-
-        response = (
+        for i in range(1, 21):
+            selector = f'body > div > div.gallery-grid > div:nth-child({i}) > div.tg-channel-link > a > img'
+            element = driver.find_element(By.CSS_SELECTOR, selector)
+            src = element.get_attribute('src')
+            # print(f'Source {i}: {src}')
+            response = (
             supabase.table(SUPABASE_TABLE_NAME)
-            .insert({"result": data_text})
+            .insert({"result": src})
             .execute()
         )
 
+
+
+        
         print(f"SUKSES CREATE: {kw}", file=sys.__stderr__)
 
         time.sleep(5)
